@@ -105,14 +105,14 @@ exports.ratingBook = async (req, res, next) => {
       { new: true }
     );
     const ratingLength = book.ratings.length;
-    const averageRating =
+    const newAverageRating =
       book.ratings.reduce((somme, rating) => somme + rating.grade, 0) /
       ratingLength;
-    book.averageRating = averageRating;
-    id = req.params.id;
+    book.averageRating = newAverageRating;
     await book.save();
-    // console.log(book);
-    return res.status(200).json({ book, id });
+    Book.findOne({ _id: req.params.id }).then((book) =>
+      res.status(200).json(book)
+    );
   } catch (error) {
     return res.status(500).json({ error });
   }
