@@ -117,34 +117,3 @@ exports.ratingBook = async (req, res, next) => {
     return res.status(500).json({ error });
   }
 };
-
-// const Element = require("../models/element"); // Importer le modèle de l'élément
-
-// Contrôleur pour noter un élément
-/* exports.noterElement = async (req, res, next) => {
-  const { elementId, note } = req.body; // Récupérer les données du corps de la requête
-
-  try {
-    // Rechercher l'élément dans la base de données par son identifiant
-    const element = await Element.findById(elementId);
-
-    if (!element) {
-      return res.status(404).json({ message: "Élément non trouvé" });
-    }
-
-    // Mettre à jour la note de l'élément
-    element.notes.push(note);
-    await element.save();
-
-    // Calculer la moyenne des notes de l'élément
-    const moyenne =
-      element.notes.reduce((acc, note) => acc + note, 0) / element.notes.length;
-
-    // Répondre avec la moyenne mise à jour
-    return res.status(200).json({ moyenne });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "Erreur serveur" });
-  }
-}; */
-
