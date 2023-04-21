@@ -5,10 +5,11 @@ exports.createBook = (req, res, next) => {
   const bookObject = JSON.parse(req.body.book);
   delete bookObject._id;
   delete bookObject._userId;
+  req.file.path = req.file.path.replace("\\", "/");
   const book = new Book({
     ...bookObject,
     userId: req.auth.userId,
-    imageUrl: `${req.protocol}://${req.get("host")}/${req.file.path}`,
+    imageUrl: req.protocol + "://" + req.get("host") + "/" + req.file.path,
   });
   book
     .save()
@@ -21,10 +22,11 @@ exports.createBook = (req, res, next) => {
 };
 
 exports.modifyBook = (req, res, next) => {
+  req.file.path = req.file.path.replace("\\", "/");
   const bookObject = req.file
     ? {
         ...JSON.parse(req.body.book),
-        imageUrl: `${req.protocol}://${req.get("host")}/${req.file.path}`,
+        imageUrl: req.protocol + "://" + req.get("host") + "/" + req.file.path,
       }
     : { ...req.body };
   delete bookObject._userId;
@@ -103,7 +105,7 @@ exports.ratingBook = async (req, res, next) => {
     const newAverageRating =
       book.ratings.reduce((somme, rating) => somme + rating.grade, 0) /
       ratingLength;
-    book.averageRating = newAverageRating;
+    book.averageRating = newAverageRating.toFixed(2);
     await book.save();
     Book.findOne({ _id: req.params.id }).then((book) =>
       res.status(200).json(book)
