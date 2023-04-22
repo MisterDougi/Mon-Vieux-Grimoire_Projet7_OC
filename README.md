@@ -15,4 +15,4 @@ Récupérez votre code URI sur MongoDB et ajoutez-le dans un fichier .env que vo
 
 ### Lancez le backend
 
- Faites la commande `npm run start` dans le dossier backend pour lancer le serveur, et une nouvelle fois à la racine pour lancer le projet. 
+ Faites la commande `nodemon server` dans le dossier backend pour lancer le serveur, et `npm run start` à la racine pour lancer le projet. 
