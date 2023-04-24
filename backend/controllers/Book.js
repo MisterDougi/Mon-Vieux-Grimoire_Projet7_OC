@@ -22,7 +22,9 @@ exports.createBook = (req, res, next) => {
 };
 
 exports.modifyBook = (req, res, next) => {
-  req.file.path = req.file.path.replace("\\", "/");
+  if (req.file) {
+    req.file.path = req.file.path.replace("\\", "/");
+  }
   const bookObject = req.file
     ? {
         ...JSON.parse(req.body.book),
